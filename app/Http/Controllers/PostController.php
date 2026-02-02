@@ -38,11 +38,12 @@ class PostController extends Controller
         $post->user()->associate(Auth::user());
         $post->category()->associate($request->validated('category_id'));
         $post->save();
-        $image = new Image();
-        $image->path = $request->validated('image')->store('', ['disk' => 'public']);
-        $image->post()->associate($post);
-        $image->save();
-
+        foreach($request->validated('image') as $file) {
+            $image = new Image();
+            $image->path = $file->store('', ['disk' => 'public']);
+            $image->post()->associate($post);
+            $image->save();
+        }
         return redirect()->route('posts.index');
     }
 

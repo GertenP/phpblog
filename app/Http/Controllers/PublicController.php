@@ -13,7 +13,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class PublicController extends Controller
 {
     public function index() {
-        $posts = [];
+        $posts = collect();
         if(Auth::check()) {
             $posts = Auth::user()->feed->with('user')->withCount('comments', 'likes')->latest()->simplePaginate(16);
         }

@@ -83,7 +83,7 @@ class Post extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function image() {
-        return $this->hasOne(Image::class);
+    public function images() {
+        return $this->hasMany(Image::class);
     }
 }
